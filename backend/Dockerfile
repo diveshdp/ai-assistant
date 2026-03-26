@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.4
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -15,4 +16,6 @@ USER appuser
 
 EXPOSE 8000
 
+# Note: OPENAI_API_KEY should be passed at runtime via environment variables
+# See .github/workflows/ci-cd.yml for how secrets are passed to ECS
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

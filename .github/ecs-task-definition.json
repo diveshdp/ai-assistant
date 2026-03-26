@@ -1,0 +1,51 @@
+[
+  {
+    "name": "ai-assistant-api",
+    "image": "PLACEHOLDER_IMAGE_URI",
+    "cpu": 256,
+    "memory": 512,
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 8000,
+        "protocol": "tcp"
+      }
+    ],
+    "environment": [
+      {
+        "name": "APP_ENV",
+        "value": "production"
+      },
+      {
+        "name": "CORS_ORIGINS",
+        "value": "[\"https://your-frontend-domain.com\"]"
+      }
+    ],
+    "secrets": [
+      {
+        "name": "OPENAI_API_KEY",
+        "valueFrom": "arn:aws:secretsmanager:REGION:ACCOUNT:secret:openai-api-key"
+      },
+      {
+        "name": "DATABASE_URL",
+        "valueFrom": "arn:aws:secretsmanager:REGION:ACCOUNT:secret:database-url"
+      },
+      {
+        "name": "REDIS_URL",
+        "valueFrom": "arn:aws:secretsmanager:REGION:ACCOUNT:secret:redis-url"
+      },
+      {
+        "name": "JWT_SECRET",
+        "valueFrom": "arn:aws:secretsmanager:REGION:ACCOUNT:secret:jwt-secret"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/ai-assistant-api",
+        "awslogs-region": "us-east-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    }
+  }
+]
